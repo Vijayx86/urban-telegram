@@ -1,0 +1,30 @@
+body {
+    background-color: #343541; /* Updated to match this chat's background */
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  h1 {
+    color: #ffffff;
+    text-shadow: 1px 1px 3px #000;
+  }
+  
+  .btn-primary {
+    background-color: #99320c;
+    border-color: #99320c;
+  }
+  
+  .btn-primary:hover {
+    background-color: #aa3b10;
+    border-color: #aa3b10;
+  }
+  
+  .drop-zone {
+    border: 2px dashed #99320c;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease;
+  }
+  
+  .drop-zone.highlight {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  

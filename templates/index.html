@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fancy Video Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      background-color: #343541;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      color: #ffffff;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .btn-primary {
+      background-color: #99320c;
+      border-color: #99320c;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #aa3b10;
+      border-color: #aa3b10;
+      transform: scale(1.05);
+    }
+
+    .drop-zone {
+      border: 2px dashed #99320c;
+      background-color: rgba(255, 255, 255, 0.03);
+      transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .drop-zone.highlight {
+      background-color: rgba(255, 255, 255, 0.07);
+      transform: scale(1.02);
+    }
+
+    label, p, .form-select, .form-control {
+      color: #e0e0e0;
+    }
+
+    input::file-selector-button {
+      background: #99320c;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    input::file-selector-button:hover {
+      background: #aa3b10;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h1 class="mt-5">🎞️ Fancy Video Generator</h1>
+
+    <form id="upload-form" method="POST" enctype="multipart/form-data" class="mt-4">
+      <label for="fileElem">
+        <div id="drop-area" class="drop-zone my-3 p-5 rounded">
+          <p class="mb-0">📂 Drag & Drop your image here or click to select</p>
+          <input type="file" name="file" id="fileElem" class="form-control mt-3" accept="image/*" required>
+        </div>
+      </label>
+
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <label for="effect">Effect</label>
+          <select class="form-select" name="effect">
+            <option value="blur">Matte Blur</option>
+            <option value="fade">Fade In</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Video Duration (s)</label>
+          <input type="number" name="duration" class="form-control" value="10" min="1">
+        </div>
+        <div class="col-md-3">
+          <label>Effect Duration (s)</label>
+          <input type="number" name="effect_duration" class="form-control" value="3" min="0.1" step="0.1">
+        </div>
+        <div class="col-md-3">
+          <label>FPS</label>
+          <input type="number" name="fps" class="form-control" value="60" min="1">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary mt-4 px-5 py-2">✨ Generate Video</button>
+    </form>
+  </div>
+
+  <script>
+    const dropArea = document.getElementById("drop-area");
+    const inputFile = document.getElementById("fileElem");
+
+    dropArea.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropArea.classList.add("highlight");
+    });
+
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("highlight");
+    });
+
+    dropArea.addEventListener("drop", e => {
+      e.preventDefault();
+      dropArea.classList.remove("highlight");
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        inputFile.files = files;
+      }
+    });
+  </script>
+</body>
+</html>
